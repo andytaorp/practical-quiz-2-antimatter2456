@@ -4,24 +4,31 @@ import HabitList from "./HabitList";
 
 function App() {
   const [habits, setHabits] = useState([]);
+  const [nextId, setNextId] = useState(1);
 
   const handleAddHabit = (habitName) => {
-    // TODO: write code to add a new habit here
+    const newHabit = { id: nextId, name: habitName, completed: false };
+    setHabits([...habits, newHabit]);
+    setNextId(nextId + 1);
   };
 
   const handleToggleHabit = (id) => {
-    // TODO: write code to toggle a habit's status
+    const updatedHabits = habits.map((habit) =>
+      habit.id === id ? { ...habit, completed: !habit.completed } : habit
+    );
+    setHabits(updatedHabits);
   };
 
   const handleDeleteHabit = (id) => {
-    // TODO: write code to delete a habit
+    const updatedHabits = habits.filter((habit) => habit.id !== id);
+    setHabits(updatedHabits);
   };
 
   return (
     <div>
       <h1>Habit Tracker</h1>
-      {/*TODO: add a form to add a new habit*/}
-      {/*TODO: add a list of habits*/}
+      <AddHabitForm onAddHabit={handleAddHabit} />
+      <HabitList habits={habits} onToggleHabit={handleToggleHabit} onDeleteHabit={handleDeleteHabit} />
     </div>
   );
 }
