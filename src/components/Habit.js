@@ -1,33 +1,27 @@
 import React from "react";
 
 const Habit = ({ habit, onToggleHabit, onDeleteHabit }) => {
-  const handleToggleHabit = () => {
+  const handleToggle = () => {
     onToggleHabit(habit.id);
   };
 
-  const handleDeleteHabit = () => {
+  const handleDelete = () => {
     onDeleteHabit(habit.id);
   };
 
   return (
-    <li>
+    <div>
+      <input
+        type="checkbox"
+        checked={habit.completed}
+        onChange={handleToggle}
+      />
       <span style={{ textDecoration: habit.completed ? "line-through" : "none" }}>
         {habit.name}
       </span>
-      <button onClick={handleToggleHabit}>
-        {habit.completed ? "Not Done" : "Done"}
-      </button>
-      <button onClick={handleDeleteHabit}>Delete Habit</button>
-    </li>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
   );
 };
 
 export default Habit;
-
-
-/**
- * Habit component that displays a habit, allows the user to toggle
- * the habit's completed state, and delete the habit.
- *
- * TODO: implement the Habit component here
- */
